@@ -1,20 +1,23 @@
 <template>
   <main>
-    <div>
+  <div id="instruction">
+    <h1>PICBOARD</h1>
+ <div id="instructorMain">
+    <div id="addUrl">
       <h2>Agregar desde URL</h2>
       <input type="text" v-model="imageUrl" placeholder="URL de la imagen">
       <input type="text" v-model="imageCaption" placeholder="Caption">
       <button @click="addImageFromUrl">Agregar</button>
       <p style="color: red">{{ urlWarning }}</p>
     </div>
-    <div>
-      <h2>Agregar desde Equipo</h2>
+    <div id="addEquipo">
+      <h2 >Agregar desde Equipo</h2>
       <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
       <button @click="openFileInput">Seleccionar Imagen</button>
       <input type="text" v-model="fileCaption" placeholder="Caption">
       <button @click="addImageFromFile">Subir Imagen</button>
       <p style="color: red">{{ fileWarning }}</p>
-    </div>
+    </div> </div></div>
     <div id="gallery">
       <figure v-for="(image, index) in images" :key="index">
         <img :src="image.src" :alt="image.alt">
@@ -94,11 +97,35 @@ export default {
   :root {
       --adjust-size: 0px; /* Change as needed */
   }
-  * {
+  * {font-family: "Kalam", sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
   }
+#instruction{display: flex;
+justify-content: center;
+flex-direction: column;
+align-items:center;
+text-align: center;
+
+}
+#instructorMain{
+  display: flex;
+  flex-direction: row;
+}
+#addUrl input{margin: 15px; padding: 5px;
+  
+}
+h1{font-size: 60px;}
+h2{font-size: 30px;}
+#addUrl button{padding: 5px;
+margin-right: 25px;}
+#addEquipo input{margin: 15px;
+  padding: 5px;
+  
+}
+#addEquipo button{padding: 5px;}
+
   html,
   body {
       overscroll-behavior-x: none;
@@ -106,19 +133,18 @@ export default {
       scroll-behavior: smooth;
   }
   body {
-      position: relative;
-      color: #222;
-      font-family: "Kalam", sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-image: url("https://images.unsplash.com/photo-1531685250784-7569952593d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTMyOTE2OTh8&ixlib=rb-4.0.3&q=100&w=3000");
-      background-size: cover;
+  	position: relative;
+	color: #222;
+	min-height: 100vh;
+	overflow-x: hidden;
+	background-image: url("https://images.unsplash.com/photo-1531685250784-7569952593d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTMyOTE2OTh8&ixlib=rb-4.0.3&q=100&w=3000");
+	background-size: cover;
   }
   main {
       position: relative;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       max-width: 100vw;
       min-height: 100vh;
       overflow-x: hidden;
@@ -137,6 +163,7 @@ export default {
       user-select: none;
       pointer-events: none;
   }
+  
   #gallery {
       position: relative;
       left: calc(-1 * var(--adjust-size));
