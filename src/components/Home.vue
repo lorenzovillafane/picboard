@@ -1,23 +1,25 @@
 <template>
   <main>
-  <div id="instruction">
-    <h1>PICBOARD</h1>
- <div id="instructorMain">
-    <div id="addUrl">
-      <h2>Agregar desde URL</h2>
-      <input type="text" v-model="imageUrl" placeholder="URL de la imagen">
-      <input type="text" v-model="imageCaption" placeholder="Caption">
-      <button @click="addImageFromUrl">Agregar</button>
-      <p style="color: red">{{ urlWarning }}</p>
+    <div id="instruction">
+      <h1>PICBOARD</h1>
+      <div id="instructorMain">
+        <div id="addUrl">
+          <h2>Agregar desde URL</h2>
+          <input type="text" v-model="imageUrl" placeholder="URL de la imagen">
+          <input type="text" v-model="imageCaption" placeholder="Caption">
+          <button @click="addImageFromUrl">Agregar</button>
+          <p style="color: red">{{ urlWarning }}</p>
+        </div>
+        <div id="addEquipo">
+          <h2 >Agregar desde Equipo</h2>
+          <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
+          <button @click="openFileInput">Seleccionar Imagen</button>
+          <input type="text" v-model="fileCaption" placeholder="Caption">
+          <button @click="addImageFromFile">Subir Imagen</button>
+          <p style="color: red">{{ fileWarning }}</p>
+        </div>
+      </div>
     </div>
-    <div id="addEquipo">
-      <h2 >Agregar desde Equipo</h2>
-      <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
-      <button @click="openFileInput">Seleccionar Imagen</button>
-      <input type="text" v-model="fileCaption" placeholder="Caption">
-      <button @click="addImageFromFile">Subir Imagen</button>
-      <p style="color: red">{{ fileWarning }}</p>
-    </div> </div></div>
     <div id="gallery">
       <figure v-for="(image, index) in images" :key="index">
         <img :src="image.src" :alt="image.alt">
@@ -41,6 +43,22 @@ export default {
       selectedFile: null,
       selectedFileUrl: ''
     };
+  },
+  created() {
+    // Al cargar el componente, intenta cargar las imágenes desde el almacenamiento local
+    const storedImages = localStorage.getItem('images');
+    if (storedImages) {
+      this.images = JSON.parse(storedImages);
+    }
+  },
+  watch: {
+    // Vigilar cambios en la lista de imágenes y guardar en almacenamiento local
+    images: {
+      handler() {
+        localStorage.setItem('images', JSON.stringify(this.images));
+      },
+      deep: true
+    }
   },
   methods: {
     removeImage(index) {
