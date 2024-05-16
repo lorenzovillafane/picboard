@@ -111,6 +111,7 @@ text-align: center;
 }
 #instructorMain{
   display: flex;
+  justify-content: space-around;
   flex-direction: row;
 }
 #addUrl input{margin: 15px; padding: 5px;
@@ -143,8 +144,8 @@ margin-right: 25px;}
   main {
       position: relative;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
       max-width: 100vw;
       min-height: 100vh;
       overflow-x: hidden;
@@ -329,17 +330,37 @@ margin-right: 25px;}
   #info a {
       font-size: 1.1rem;
   }
-  /*
-  @media (orientation: landscape) {
-      #gallery {
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      }
-  }
-  */
+ @media (max-width: 980px) {
+#instructionMain{display: flex;
+justify-content: space-around;}
+#addUrl{display: flex;
+  flex-direction: column; 
+margin: 15px;}
+#addUrl button{margin: 15px;}
+#addEquipo{display: flex;
+  flex-direction: column;
+margin: 15px;}
+#addEquipo button{margin: 15px;}
+
+
+ }
   @media (min-width: 800px) {
       #gallery {
           grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       }
   }
+  @media (max-width: 480px) {
+h1{font-size: 50px;}
+h2{font-size: 20px;}
+input{width: 150px;}
+
+ }
+ @media (max-width: 420px) {
+h1{font-size: 40px;}
+h2{font-size: 15px;}
+input{width: 120px;}
+
+ }
+ 
   </style>
   
